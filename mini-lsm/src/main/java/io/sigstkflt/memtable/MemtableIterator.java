@@ -1,6 +1,6 @@
 package io.sigstkflt.memtable;
 
-public interface MemTableIterator {
+public interface MemtableIterator {
     boolean hasNext();
 
     KeyValuePair next();

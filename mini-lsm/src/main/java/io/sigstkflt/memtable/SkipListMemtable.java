@@ -35,8 +35,8 @@ public class SkipListMemtable implements Memtable {
         return estimatedSize.get();
     }
 
-    public MemTableIterator iterator() {
-        return new DefaultMemTableIterator(map);
+    public MemtableIterator iterator() {
+        return new DefaultMemtableIterator(map);
     }
 
 }

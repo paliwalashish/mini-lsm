@@ -44,7 +44,7 @@ class DefaultMemtableIteratorTest {
         @Test
         @DisplayName("should return false for hasNext on empty memtable")
         void testEmptyMemtableHasNext() {
-            DefaultMemTableIterator iterator = new DefaultMemTableIterator(map);
+            DefaultMemtableIterator iterator = new DefaultMemtableIterator(map);
 
             assertFalse(iterator.hasNext());
         }
@@ -54,7 +54,7 @@ class DefaultMemtableIteratorTest {
         void testSingleElementIteration() {
             putEntry("key1", "value1");
 
-            DefaultMemTableIterator iterator = new DefaultMemTableIterator(map);
+            DefaultMemtableIterator iterator = new DefaultMemtableIterator(map);
 
             assertTrue(iterator.hasNext());
             KeyValuePair pair = iterator.next();
@@ -70,7 +70,7 @@ class DefaultMemtableIteratorTest {
             putEntry("alpha", "1");
             putEntry("bravo", "2");
 
-            DefaultMemTableIterator iterator = new DefaultMemTableIterator(map);
+            DefaultMemtableIterator iterator = new DefaultMemtableIterator(map);
 
             List<String> keys = new ArrayList<>();
             while (iterator.hasNext()) {
@@ -88,7 +88,7 @@ class DefaultMemtableIteratorTest {
                 putEntry("key" + String.format("%03d", i), "value" + i);
             }
 
-            DefaultMemTableIterator iterator = new DefaultMemTableIterator(map);
+            DefaultMemtableIterator iterator = new DefaultMemtableIterator(map);
 
             int count = 0;
             while (iterator.hasNext()) {
@@ -104,7 +104,7 @@ class DefaultMemtableIteratorTest {
         void testThrowsNoSuchElementExceptionWhenExhausted() {
             putEntry("key1", "value1");
 
-            DefaultMemTableIterator iterator = new DefaultMemTableIterator(map);
+            DefaultMemtableIterator iterator = new DefaultMemtableIterator(map);
             iterator.next();
 
             assertThrows(NoSuchElementException.class, iterator::next);
@@ -129,7 +129,7 @@ class DefaultMemtableIteratorTest {
         @Test
         @DisplayName("should iterate full map when both keys are null")
         void testBothKeysNull() {
-            DefaultMemTableIterator iterator = new DefaultMemTableIterator(map, null, null);
+            DefaultMemtableIterator iterator = new DefaultMemtableIterator(map, null, null);
 
             List<String> keys = collectKeys(iterator);
 
@@ -139,7 +139,7 @@ class DefaultMemtableIteratorTest {
         @Test
         @DisplayName("should iterate from beginKey to end when endKey is null")
         void testOnlyBeginKey() {
-            DefaultMemTableIterator iterator = new DefaultMemTableIterator(map, wrap("c"), null);
+            DefaultMemtableIterator iterator = new DefaultMemtableIterator(map, wrap("c"), null);
 
             List<String> keys = collectKeys(iterator);
 
@@ -149,7 +149,7 @@ class DefaultMemtableIteratorTest {
         @Test
         @DisplayName("should iterate from start to endKey when beginKey is null")
         void testOnlyEndKey() {
-            DefaultMemTableIterator iterator = new DefaultMemTableIterator(map, null, wrap("c"));
+            DefaultMemtableIterator iterator = new DefaultMemtableIterator(map, null, wrap("c"));
 
             List<String> keys = collectKeys(iterator);
 
@@ -160,7 +160,7 @@ class DefaultMemtableIteratorTest {
         @Test
         @DisplayName("should iterate within inclusive range when both keys specified")
         void testBothKeysSpecified() {
-            DefaultMemTableIterator iterator = new DefaultMemTableIterator(map, wrap("b"), wrap("d"));
+            DefaultMemtableIterator iterator = new DefaultMemtableIterator(map, wrap("b"), wrap("d"));
 
             List<String> keys = collectKeys(iterator);
 
@@ -171,7 +171,7 @@ class DefaultMemtableIteratorTest {
         @DisplayName("should handle beginKey that doesn't exist in map")
         void testBeginKeyNotInMap() {
             // "bb" doesn't exist, should start from "c"
-            DefaultMemTableIterator iterator = new DefaultMemTableIterator(map, wrap("bb"), null);
+            DefaultMemtableIterator iterator = new DefaultMemtableIterator(map, wrap("bb"), null);
 
             List<String> keys = collectKeys(iterator);
 
@@ -182,7 +182,7 @@ class DefaultMemtableIteratorTest {
         @DisplayName("should handle endKey that doesn't exist in map")
         void testEndKeyNotInMap() {
             // "cc" doesn't exist, should include up to but not including "cc"
-            DefaultMemTableIterator iterator = new DefaultMemTableIterator(map, null, wrap("cc"));
+            DefaultMemtableIterator iterator = new DefaultMemtableIterator(map, null, wrap("cc"));
 
             List<String> keys = collectKeys(iterator);
 
@@ -193,7 +193,7 @@ class DefaultMemtableIteratorTest {
         @DisplayName("should return empty iterator when range has no elements")
         void testEmptyRange() {
             // Range between "aa" and "ab" has no elements
-            DefaultMemTableIterator iterator = new DefaultMemTableIterator(map, wrap("aa"), wrap("ab"));
+            DefaultMemtableIterator iterator = new DefaultMemtableIterator(map, wrap("aa"), wrap("ab"));
 
             assertFalse(iterator.hasNext());
         }
@@ -201,7 +201,7 @@ class DefaultMemtableIteratorTest {
         @Test
         @DisplayName("should return single element when beginKey equals endKey and exists")
         void testSingleElementRange() {
-            DefaultMemTableIterator iterator = new DefaultMemTableIterator(map, wrap("c"), wrap("c"));
+            DefaultMemtableIterator iterator = new DefaultMemtableIterator(map, wrap("c"), wrap("c"));
 
             List<String> keys = collectKeys(iterator);
 
@@ -211,7 +211,7 @@ class DefaultMemtableIteratorTest {
         @Test
         @DisplayName("should handle beginKey after all elements")
         void testBeginKeyAfterAllElements() {
-            DefaultMemTableIterator iterator = new DefaultMemTableIterator(map, wrap("z"), null);
+            DefaultMemtableIterator iterator = new DefaultMemtableIterator(map, wrap("z"), null);
 
             assertFalse(iterator.hasNext());
         }
@@ -220,7 +220,7 @@ class DefaultMemtableIteratorTest {
         @DisplayName("should handle endKey before all elements")
         void testEndKeyBeforeAllElements() {
             // headMap with key before "a" should return empty
-            DefaultMemTableIterator iterator = new DefaultMemTableIterator(map, null, wrap("0"));
+            DefaultMemtableIterator iterator = new DefaultMemtableIterator(map, null, wrap("0"));
 
             assertFalse(iterator.hasNext());
         }
@@ -237,7 +237,7 @@ class DefaultMemtableIteratorTest {
         void testKeyWrapper() {
             putEntry("testKey", "testValue");
 
-            DefaultMemTableIterator iterator = new DefaultMemTableIterator(map);
+            DefaultMemtableIterator iterator = new DefaultMemtableIterator(map);
             KeyValuePair pair = iterator.next();
 
             assertArrayEquals(toBytes("testKey"), pair.keyWrapper().getValue());
@@ -248,7 +248,7 @@ class DefaultMemtableIteratorTest {
         void testData() {
             putEntry("testKey", "testValue");
 
-            DefaultMemTableIterator iterator = new DefaultMemTableIterator(map);
+            DefaultMemtableIterator iterator = new DefaultMemtableIterator(map);
             KeyValuePair pair = iterator.next();
 
             assertArrayEquals(toBytes("testValue"), pair.data());
@@ -260,7 +260,7 @@ class DefaultMemtableIteratorTest {
             putEntry("key1", "value1");
             putEntry("key2", "value2");
 
-            DefaultMemTableIterator iterator = new DefaultMemTableIterator(map);
+            DefaultMemtableIterator iterator = new DefaultMemtableIterator(map);
             KeyValuePair pair1 = iterator.next();
             KeyValuePair pair2 = iterator.next();
 
@@ -285,7 +285,7 @@ class DefaultMemtableIteratorTest {
             map.put(new ByteArrayWrapper(key2), value2);
             map.put(new ByteArrayWrapper(key1), value1);
 
-            DefaultMemTableIterator iterator = new DefaultMemTableIterator(map);
+            DefaultMemtableIterator iterator = new DefaultMemtableIterator(map);
 
             KeyValuePair pair1 = iterator.next();
             assertArrayEquals(key1, pair1.keyWrapper().getValue());
@@ -301,7 +301,7 @@ class DefaultMemtableIteratorTest {
             byte[] value = toBytes("value");
             map.put(new ByteArrayWrapper(emptyKey), value);
 
-            DefaultMemTableIterator iterator = new DefaultMemTableIterator(map);
+            DefaultMemtableIterator iterator = new DefaultMemtableIterator(map);
 
             assertTrue(iterator.hasNext());
             KeyValuePair pair = iterator.next();
@@ -313,7 +313,7 @@ class DefaultMemtableIteratorTest {
         void testEmptyValue() {
             putEntry("key", "");
 
-            DefaultMemTableIterator iterator = new DefaultMemTableIterator(map);
+            DefaultMemtableIterator iterator = new DefaultMemtableIterator(map);
             KeyValuePair pair = iterator.next();
 
             assertEquals(0, pair.data().length);
@@ -326,7 +326,7 @@ class DefaultMemtableIteratorTest {
             putEntry("key\nwith\nnewlines", "value2");
             putEntry("key with spaces", "value3");
 
-            DefaultMemTableIterator iterator = new DefaultMemTableIterator(map);
+            DefaultMemtableIterator iterator = new DefaultMemtableIterator(map);
 
             int count = 0;
             while (iterator.hasNext()) {
@@ -344,7 +344,7 @@ class DefaultMemtableIteratorTest {
             byte[] value = toBytes("highValue");
             map.put(new ByteArrayWrapper(key), value);
 
-            DefaultMemTableIterator iterator = new DefaultMemTableIterator(map);
+            DefaultMemtableIterator iterator = new DefaultMemtableIterator(map);
 
             assertTrue(iterator.hasNext());
             KeyValuePair pair = iterator.next();
@@ -363,7 +363,7 @@ class DefaultMemtableIteratorTest {
         void testHasNextIdempotent() {
             putEntry("key1", "value1");
 
-            DefaultMemTableIterator iterator = new DefaultMemTableIterator(map);
+            DefaultMemtableIterator iterator = new DefaultMemtableIterator(map);
 
             assertTrue(iterator.hasNext());
             assertTrue(iterator.hasNext());
@@ -381,7 +381,7 @@ class DefaultMemtableIteratorTest {
             putEntry("key1", "value1");
             putEntry("key2", "value2");
 
-            DefaultMemTableIterator iterator = new DefaultMemTableIterator(map);
+            DefaultMemtableIterator iterator = new DefaultMemtableIterator(map);
 
             // Call hasNext multiple times
             for (int i = 0; i < 5; i++) {
@@ -403,9 +403,9 @@ class DefaultMemtableIteratorTest {
         @Test
         @DisplayName("should implement MemTableIterator interface")
         void testImplementsMemTableIterator() {
-            DefaultMemTableIterator iterator = new DefaultMemTableIterator(map);
+            DefaultMemtableIterator iterator = new DefaultMemtableIterator(map);
 
-            assertTrue(iterator instanceof MemTableIterator);
+            assertTrue(iterator instanceof MemtableIterator);
         }
     }
 
@@ -423,7 +423,7 @@ class DefaultMemtableIteratorTest {
             memTable.put(toBytes("key2"), toBytes("value2"));
             memTable.put(toBytes("key3"), toBytes("value3"));
 
-            MemTableIterator iterator = memTable.iterator();
+            MemtableIterator iterator = memTable.iterator();
 
             List<String> keys = new ArrayList<>();
             while (iterator.hasNext()) {
@@ -436,7 +436,7 @@ class DefaultMemtableIteratorTest {
     }
 
     // Helper method to collect keys from iterator
-    private List<String> collectKeys(DefaultMemTableIterator iterator) {
+    private List<String> collectKeys(DefaultMemtableIterator iterator) {
         List<String> keys = new ArrayList<>();
         while (iterator.hasNext()) {
             KeyValuePair pair = iterator.next();

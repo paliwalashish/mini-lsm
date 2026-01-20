@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.NavigableMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 
-public class DefaultMemTableIterator implements MemTableIterator {
+public class DefaultMemtableIterator implements MemtableIterator {
 
     private ConcurrentSkipListMap<ByteArrayWrapper, byte[]> map;
     Iterator<Map.Entry<ByteArrayWrapper, byte[]>> iterator;
@@ -14,7 +14,7 @@ public class DefaultMemTableIterator implements MemTableIterator {
      * Defaulkt constructor to iterator complete Memtable like flushing to disk
      * @param memtable
      */
-    public DefaultMemTableIterator(ConcurrentSkipListMap<ByteArrayWrapper, byte[]> memtable) {
+    public DefaultMemtableIterator(ConcurrentSkipListMap<ByteArrayWrapper, byte[]> memtable) {
         this.map = memtable;
         this.iterator = memtable.entrySet().iterator();
     }
@@ -27,7 +27,7 @@ public class DefaultMemTableIterator implements MemTableIterator {
      * @param beginKey
      * @param endKey
      */
-    public DefaultMemTableIterator(ConcurrentSkipListMap<ByteArrayWrapper, byte[]> memtable, ByteArrayWrapper beginKey, ByteArrayWrapper endKey) {
+    public DefaultMemtableIterator(ConcurrentSkipListMap<ByteArrayWrapper, byte[]> memtable, ByteArrayWrapper beginKey, ByteArrayWrapper endKey) {
         this.map = memtable;
         NavigableMap<ByteArrayWrapper, byte[]> iterableMap;
 
